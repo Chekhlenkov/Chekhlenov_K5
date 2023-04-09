@@ -17,8 +17,9 @@ class Armor:
 class Weapon:
     id: int
     name: str
-    defence: float
-    stamina_per_turn: float
+    max_damage: float
+    min_damage: float
+    stamina_per_hit: float
 
     @property
     def damage(self):
@@ -60,7 +61,7 @@ class Equipment:
 
     @staticmethod
     def _get_equipment_data() -> EquipmentData:
-        with open("./data/equipment.json")as file:
+        with open("./data/equipment.json") as file:
             data = json.load(file)
             equipment_schema = marshmallow_dataclass.class_schema(EquipmentData)
             return equipment_schema().load(data)

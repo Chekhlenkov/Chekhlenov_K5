@@ -32,7 +32,7 @@ class BaseUnit(ABC):
         return f'{self.name} экипирован броней {self.armor.name}'
 
     def _count_damage(self, target: BaseUnit) -> int:
-        self.stamina -= self.weapon.stamina_per_turn
+        self.stamina -= self.weapon.stamina_per_hit
         damage = self.weapon.damage * self.unit_class.attack
 
         if target.stamina >= target.armor.stamina_per_turn * target.unit_class.stamina:

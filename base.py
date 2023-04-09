@@ -42,7 +42,7 @@ class Arena(metaclass=BaseSingleton):
 
     def next_turn(self):
         result = self._check_players_hp()
-        if resultis is not None:
+        if result is not None:
             return result
         if self.game_is_running:
             self._stamina_regeneration()
@@ -53,12 +53,12 @@ class Arena(metaclass=BaseSingleton):
         self.game_is_running = False
         return self.battle_result
 
-    def plyer_hit(self):
+    def player_hit(self):
         result = self.player.hit(self.enemy)
         turn_result = self.next_turn()
         return f'{result}\n{turn_result}'
 
-    def plyer_use_skill(self):
+    def player_use_skill(self):
         result = self.player.hit(self.enemy)
         turn_result = self.next_turn()
         return f'{result}\n{turn_result}'

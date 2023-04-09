@@ -18,6 +18,11 @@ arena = Arena()
 def menu_page():
     return render_template('index.html')
 
+@app.route("/fight/")
+def start_fight():
+    arena.start_game(player=heroes['player'], enemy=heroes['enemy'])
+    return render_template('fight.html', heroes=heroes)
+
 @app.route("/fight/hit")
 def hit():
     if arena.game_is_running:
@@ -67,7 +72,7 @@ def choose_hero():
         unit_class_name = request.form['unit_class']
         player = PlayerUnit(name=name, unit_class=unit_classes.get(unit_class_name))
         player.equip_armor(Equipment().get_armor(armor_name))
-        player.equip_eapon(Equipment().get_weapon(weapon_name))
+        player.equip_weapon(Equipment().get_weapon(weapon_name))
         heroes['player'] = player
         return redirect(url_for('choose_enemy'))
 
@@ -92,9 +97,9 @@ def choose_enemy():
         unit_class = request.form['unit_class']
         enemy = EnemyUnit(name=name, unit_class=unit_classes.get(unit_class))
         enemy.equip_armor(Equipment().get_armor(armor_name))
-        enemy.equip_eapon(Equipment().get_weapon(weapon_name))
+        enemy.equip_weapon(Equipment().get_weapon(weapon_name))
         heroes['enemy'] = enemy
-        return redirect(url_for('start  fight'))
+        return redirect(url_for('start_fight'))
 
 if __name__ == "main":
     app.run(port=25000)
